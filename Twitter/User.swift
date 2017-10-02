@@ -13,24 +13,18 @@ class User: NSObject {
     static var _currentUser: User?
     static let currentUserKey = "CurrentUserKey"
 
-
     var name: String?
     var screenname: String?
-    var profileImageUrl: String?//URL
+    var profileImageUrl: String?
     var tagline: String?
     var userid: String?
     var dictionary: Dictionary<String, AnyObject>?
-
     
     init(dictionary: Dictionary<String, AnyObject>) {
         
-        //print("dictionary \(dictionary)")
-
         name = dictionary["name"] as? String
         screenname = dictionary["screen_name"] as? String
         profileImageUrl = dictionary["profile_image_url"] as? String
-      //  print("profileImageUrl \(profileImageUrl)")
-
         tagline = dictionary["description"] as? String
         userid = dictionary["id_str"] as? String
 
@@ -41,8 +35,6 @@ class User: NSObject {
     class var currentUser: User? {
         get {
             let defaults = UserDefaults.standard
-            print("_currentUser get \(_currentUser?.name)")
-
             if _currentUser == nil {
                 if let data = defaults.object(forKey: currentUserKey) as? Data {
                     
@@ -61,15 +53,10 @@ class User: NSObject {
             _currentUser = user
             let defaults = UserDefaults.standard
             
-            print("_currentUser set \(_currentUser?.name)")
-
             if _currentUser != nil {
-                print("inside user set ")
 
                 do {
                     let data = try JSONSerialization.data(withJSONObject: (user?.dictionary)! as Any, options: [])
-                    print("data: \n \(data)")
-
                     defaults.set(data, forKey: currentUserKey)
                 } catch {
                     print("JSON deserialization error: \(error)")
@@ -96,7 +83,6 @@ class User: NSObject {
         defaults.removeObject(forKey: User.currentUserKey)
         defaults.synchronize()
         
-        //TwiSwiftClient.sharedInstance? = TwiSwiftClient(baseURL: CredentialsControl.getBaseURL(), consumerKey: CredentialsControl.getKey(), consumerSecret: CredentialsControl.getSecret())
     }
 
 }

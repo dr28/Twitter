@@ -28,7 +28,6 @@ class Tweet: NSObject {
     
     init(dictionary: Dictionary<String, AnyObject>) {
         
-        print("dictionary in tweet ---------- \n\(dictionary)")
         text = dictionary["text"] as? String
         createdAtString = dictionary["created_at"] as? String
         retweetStatus = dictionary["retweeted_status"] as? Dictionary<String, AnyObject>
@@ -52,9 +51,6 @@ class Tweet: NSObject {
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
         retweetedByUser = dictionary["retweeted"] as? Bool //retweeted by current user
         favorited = dictionary["favorited"] as? Bool
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!! (dictionary[favorited] as? Int) ######################### \((dictionary["favorited"] as? Bool))")
-
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!! (dictionary[favorite_count] as? Int) ######################### \((dictionary["favorite_count"] as? Int))")
         favoriteCount = (dictionary["favorite_count"] as? Int) //?? 0
         remoteId = dictionary["id"] as? Int64
         remoteIdStr = dictionary["id_str"] as? String

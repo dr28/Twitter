@@ -94,7 +94,7 @@
                                                         <constraint firstAttribute="height" constant="50" id="lau-OU-mqM"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#Earthquake ‘thermometer’ shows LA region is boiling to Northridge level #NorthridgeLosAngeles http://bayareane.ws/2fosf9y " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sb2-CV-ZXz">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#Earthquake ‘thermometer’ shows LA region is boiling to Northridge level #NorthridgeLosAngeles http://bayareane.ws/2fosf9y " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sb2-CV-ZXz" customClass="TTTAttributedLabel">
                                                     <rect key="frame" x="66" y="37" width="301" height="70"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                     <nil key="textColor"/>
@@ -172,12 +172,6 @@
                                                     <color key="textColor" red="0.61176470589999998" green="0.61176470589999998" blue="0.61176470589999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="8888" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsi-zC-6XA">
-                                                    <rect key="frame" x="193" y="111" width="21" height="28"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                    <color key="textColor" red="0.61176470589999998" green="0.61176470589999998" blue="0.61176470589999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="undoretweet" translatesAutoresizingMaskIntoConstraints="NO" id="FAG-Rt-Z1K">
                                                     <rect key="frame" x="173" y="115" width="18" height="18"/>
                                                     <constraints>
@@ -186,13 +180,19 @@
                                                         <constraint firstAttribute="height" constant="18" id="pWZ-bi-WWu"/>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="8888" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsi-zC-6XA">
+                                                    <rect key="frame" x="193" y="117" width="27" height="14"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                                    <color key="textColor" red="0.61176470589999998" green="0.61176470589999998" blue="0.61176470589999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ErF-Aa-8BH" firstAttribute="top" secondItem="sb2-CV-ZXz" secondAttribute="bottom" constant="10" id="0Rh-CC-Zp5"/>
                                                 <constraint firstItem="duQ-Qq-aQo" firstAttribute="top" secondItem="Gwk-ub-XbK" secondAttribute="bottom" constant="4.5" id="0XQ-3Q-NQe"/>
                                                 <constraint firstItem="A06-1e-aJs" firstAttribute="leading" secondItem="sb2-CV-ZXz" secondAttribute="leading" id="2O6-we-Rc0"/>
                                                 <constraint firstItem="sb2-CV-ZXz" firstAttribute="top" secondItem="2Vy-GE-so0" secondAttribute="bottom" constant="2" id="2gZ-Zc-hZ5"/>
-                                                <constraint firstItem="3sI-kQ-Nv6" firstAttribute="leading" secondItem="lsi-zC-6XA" secondAttribute="trailing" constant="89" id="2jA-3i-DuW"/>
+                                                <constraint firstItem="3sI-kQ-Nv6" firstAttribute="leading" secondItem="lsi-zC-6XA" secondAttribute="trailing" constant="83" id="2jA-3i-DuW"/>
                                                 <constraint firstAttribute="trailing" secondItem="lJP-Uo-gTg" secondAttribute="trailing" constant="8" id="2wq-CH-uWG"/>
                                                 <constraint firstItem="lsi-zC-6XA" firstAttribute="leading" secondItem="FAG-Rt-Z1K" secondAttribute="trailing" constant="2" id="8eG-Xp-y87"/>
                                                 <constraint firstItem="82S-jn-Djg" firstAttribute="top" secondItem="Gwk-ub-XbK" secondAttribute="bottom" constant="5" id="9Z1-4e-MY2"/>
@@ -204,12 +204,12 @@
                                                 <constraint firstItem="2Vy-GE-so0" firstAttribute="leading" secondItem="duQ-Qq-aQo" secondAttribute="trailing" constant="8" id="EBn-FX-Soq"/>
                                                 <constraint firstAttribute="bottom" secondItem="duQ-Qq-aQo" secondAttribute="bottom" constant="83" id="EJY-AF-58R"/>
                                                 <constraint firstItem="FAG-Rt-Z1K" firstAttribute="centerY" secondItem="A06-1e-aJs" secondAttribute="centerY" id="F6u-tI-KLq"/>
-                                                <constraint firstItem="lsi-zC-6XA" firstAttribute="centerX" secondItem="sb2-CV-ZXz" secondAttribute="centerX" constant="-13" id="Isg-xz-MKG"/>
+                                                <constraint firstItem="lsi-zC-6XA" firstAttribute="centerX" secondItem="sb2-CV-ZXz" secondAttribute="centerX" constant="-10" id="Isg-xz-MKG"/>
                                                 <constraint firstItem="A06-1e-aJs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Dd2-Y4-mFv" secondAttribute="leading" constant="66" id="J8m-Qv-lGx"/>
                                                 <constraint firstItem="1fw-30-mrp" firstAttribute="leading" secondItem="82S-jn-Djg" secondAttribute="trailing" constant="1" id="L6H-eh-uK4"/>
                                                 <constraint firstItem="Gwk-ub-XbK" firstAttribute="leading" secondItem="Dd2-Y4-mFv" secondAttribute="leading" id="O04-14-AL0"/>
                                                 <constraint firstAttribute="trailing" secondItem="sb2-CV-ZXz" secondAttribute="trailing" constant="8" id="Pfr-gO-Wx1"/>
-                                                <constraint firstItem="lsi-zC-6XA" firstAttribute="centerY" secondItem="A06-1e-aJs" secondAttribute="centerY" constant="1" id="ToA-mb-Lrm"/>
+                                                <constraint firstItem="lsi-zC-6XA" firstAttribute="centerY" secondItem="A06-1e-aJs" secondAttribute="centerY" id="ToA-mb-Lrm"/>
                                                 <constraint firstAttribute="bottom" secondItem="ErF-Aa-8BH" secondAttribute="bottom" constant="19" id="UmX-w6-ctZ"/>
                                                 <constraint firstItem="FAG-Rt-Z1K" firstAttribute="top" secondItem="3sI-kQ-Nv6" secondAttribute="top" constant="1" id="VbD-7p-xND"/>
                                                 <constraint firstAttribute="bottom" secondItem="A06-1e-aJs" secondAttribute="bottom" constant="17" id="W2w-1j-GUL"/>
@@ -322,14 +322,14 @@
                                                     <color key="textColor" red="0.61176470589999998" green="0.61176470589999998" blue="0.61176470589999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie review: Judi Dench rues (again) in crowd pleaser. 'Victoria and Abdul'bayareane.ws/2xjcb2a" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quf-6S-DaS">
-                                                    <rect key="frame" x="12" y="82" width="355" height="63"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie review: Judi Dench rues (again) in crowd pleaser. 'Victoria and Abdul'bayareane.ws/2xjcb2a" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quf-6S-DaS" customClass="TTTAttributedLabel">
+                                                    <rect key="frame" x="12" y="82" width="355" height="65"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9/29/17" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQC-XL-KgR">
-                                                    <rect key="frame" x="12" y="185" width="49" height="17"/>
+                                                    <rect key="frame" x="12" y="187" width="49" height="17"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" red="0.61176470589999998" green="0.61176470589999998" blue="0.61176470589999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -340,7 +340,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="0g4-pH-JE4" secondAttribute="trailing" constant="202" id="2SE-5e-RMh"/>
                                                 <constraint firstItem="a1N-9X-d97" firstAttribute="leading" secondItem="SET-vj-n6W" secondAttribute="leading" constant="12" id="3dz-Ua-V5I"/>
                                                 <constraint firstAttribute="trailing" secondItem="quf-6S-DaS" secondAttribute="trailing" constant="8" id="3yS-v1-Csc"/>
-                                                <constraint firstAttribute="trailing" secondItem="imu-26-xWI" secondAttribute="trailing" constant="230" id="IAt-rl-DXN"/>
+                                                <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="imu-26-xWI" secondAttribute="trailing" constant="230" id="IAt-rl-DXN"/>
                                                 <constraint firstItem="sQC-XL-KgR" firstAttribute="leading" secondItem="SET-vj-n6W" secondAttribute="leading" constant="12" id="S3C-HP-7Sr"/>
                                                 <constraint firstItem="quf-6S-DaS" firstAttribute="top" secondItem="imu-26-xWI" secondAttribute="bottom" constant="29" id="cO1-w3-5AP"/>
                                                 <constraint firstItem="a1N-9X-d97" firstAttribute="top" secondItem="SET-vj-n6W" secondAttribute="top" constant="10" id="dc9-YE-qDX"/>

@@ -44,8 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        print(" deleeted session ")
-
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -53,12 +51,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         UserDefaults.standard.synchronize()
-
-        //let twitterClient = BDBOAuth1SessionManager(baseURL: URL(string: "https://api.twitter.com"), consumerKey: "WWvpfVVEIhtfxPQimTrSOBzS1", consumerSecret: "bOjV2e0U3AsJNjLiHAUuFBYUK86KpQMDbrQ2kUSpHabhGxCp1T")
         
         TwitterClient.sharedInstance.handleOpenUrl(url: url)
                 
-                return true
+        return true
     }
 
 

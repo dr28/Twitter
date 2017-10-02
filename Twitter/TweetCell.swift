@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TTTAttributedLabel
 
 @objc protocol TweetCellDelegate {
 
@@ -32,7 +33,7 @@ class TweetCell: UITableViewCell {
     
     @IBOutlet weak var timeAgoLabel: UILabel?
     
-    @IBOutlet weak var tweetTextLabel: UILabel?
+    @IBOutlet weak var tweetTextLabel: TTTAttributedLabel?//UILabel?
     
     @IBOutlet weak var replyImageView: UIImageView?
 
@@ -45,7 +46,6 @@ class TweetCell: UITableViewCell {
     
     @IBOutlet weak var likeCountLabel: UILabel!
     
- //   @IBOutlet weak var timestampLabel: UILabel?
     
     var isLiked: Bool = false
     
@@ -56,8 +56,6 @@ class TweetCell: UITableViewCell {
             
             if let user = tweet.tweetCreater {
                 
-                //print("profileImageView \(profileImageView)")
-
                 profileImageView?.layer.cornerRadius = 3.0
                 profileImageView?.layer.masksToBounds = true
                 
@@ -65,12 +63,9 @@ class TweetCell: UITableViewCell {
                 profileImageView?.clipsToBounds = true
                 if let normalImageUrl = user.profileImageUrl {
                     
-                   // print("normalImageUrl \(normalImageUrl)")
                     let largeImageUrl = normalImageUrl.replacingOccurrences(of: "normal", with: "200x200")
-                    //print("largeImageUrl \(largeImageUrl)")
 
                     if let url = URL(string: largeImageUrl) {
-                     //   print("url \(url)")
 
                         profileImageView?.setImageWith(url)
                     }
@@ -101,29 +96,20 @@ class TweetCell: UITableViewCell {
             
             if let date = tweet.createdAt {
                 timeAgoLabel?.text = Constants.getTimeAgoLabel(date: date)
-                //timestampLabel?.text = UIConstants.getTimeStampLabel(date: date)
             }
             
             if let text = tweet.text {
                 tweetTextLabel?.text = text
+                self.tweetTextLabel?.linkAttributes = [NSForegroundColorAttributeName: UIColor(red: 29/255, green: 161/255, blue: 242/255, alpha: 0.5)]
+
             }
 
             if let rtCount = tweet.retweetCount {
                 retweetCountLabel.text = "\(rtCount)"
-                /*if rtCount == 1 {
-                    retweetLabel.text = "RETWEET"
-                } else {
-                    retweetLabel.text = "RETWEETS"
-                }*/
             }
             
             if let favCount = tweet.favoriteCount {
                 likeCountLabel.text = "\(favCount)"
-                /*if favCount == 1 {
-                    favoriteLabel.text = "FAVORITE"
-                } else {
-                    favoriteLabel.text = "FAVORITES"
-                }*/
             }
 
             /*
@@ -143,15 +129,17 @@ class TweetCell: UITableViewCell {
                 setRetweetImage(selected: true)
             }
             
-            /*bottomReplyImageView?.image = UIImage(named: "reply")
             
-            setUpLabelAppearances()*/
+            /*setUpLabelAppearances()*/
         }
     }
 
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.tweetTextLabel?.enabledTextCheckingTypes =  NSTextCheckingAllTypes
+
         
         let replyButtonTap = UITapGestureRecognizer(target: self, action: #selector(replyButtonTapped))
         replyButtonTap.numberOfTapsRequired = 1
@@ -188,6 +176,11 @@ class TweetCell: UITableViewCell {
         delegate?.tweetCell!(tweetCell: self, didRetweetChange: tweet)
        
     }
+    
+    func likeButtonTapped() {
+        self.delegate?.tweetCell?(tweetCell: self, didFavoriteChange: self.tweet)
+        
+    }
 
     func setRetweetImage(selected: Bool) {
         if (selected) {
@@ -195,11 +188,6 @@ class TweetCell: UITableViewCell {
         } else {
             retweetImageView?.image = UIImage(named: "undoretweet")
         }
-    }
-
-    func likeButtonTapped() {
-        self.delegate?.tweetCell?(tweetCell: self, didFavoriteChange: self.tweet)
-
     }
     
     

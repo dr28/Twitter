@@ -11,14 +11,13 @@ import BDBOAuth1Manager
 
 class TwitterClient: BDBOAuth1SessionManager {
     
-    static let sharedInstance: TwitterClient = TwitterClient(baseURL: URL(string: "https://api.twitter.com"), consumerKey: "uVadfW5NmZxMHEAU1UL312bnO", consumerSecret: "IbgCPDYnz6JKLb6TVkrKZNc7cQ806k5NRIuDOICXZUmuVxbcYI")
+    static let sharedInstance: TwitterClient = TwitterClient(baseURL: URL(string: Constants.Client.Baseurl), consumerKey: Constants.Client.Consumerkey, consumerSecret: Constants.Client.Secretkey)
     
     var loginSuccess: (() -> ()?)? = nil
     var loginFailure: ((Error) -> ())?
     
     func login(success: @escaping () -> (), failure: @escaping (Error) -> ()) {
 
-        
         loginSuccess = success
         loginFailure = failure
         
@@ -37,11 +36,9 @@ class TwitterClient: BDBOAuth1SessionManager {
     func handleOpenUrl(url: URL) {
         let requestToken = BDBOAuth1Credential(queryString: url.query)
 
-        
         fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: {
             (accessToken: BDBOAuth1Credential?) -> Void in
         
-
             self.loginSuccess!()
             self.currentAccount()
             
@@ -66,13 +63,10 @@ class TwitterClient: BDBOAuth1SessionManager {
             
         })
         
-        
-        
     }
     
     
     func homeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
-        
         
         timelineFor(endpoint: Constants.Timeline.home.rawValue, params: nil, success: success, failure: failure)
         
@@ -112,7 +106,9 @@ class TwitterClient: BDBOAuth1SessionManager {
         self.post("1.1/statuses/update.json", parameters: params, progress: nil, success: { (operation: URLSessionDataTask, response: Any?) in
             
             let newTweet = Tweet(dictionary: response as! Dictionary<String, AnyObject>)
-
+            let notificationName = NSNotification.Name(rawValue: "TweetDidUpdate")
+            NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["tweet": newTweet])
+            
             success(newTweet)
 
         }, failure: { (operation: URLSessionDataTask?, error: Error) in
@@ -170,7 +166,6 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
 
     func deleteTweet(tweetId: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
-
         
         self.post(Constants.DestroyTweetUrl(tweetId: tweetId), parameters: nil, progress: nil, success: { (operation: URLSessionDataTask, response: Any?) in
             

@@ -21,9 +21,8 @@ class TweetDetailsViewController: UIViewController {
 
         tweetDetailsTableView.dataSource = self
         tweetDetailsTableView.delegate = self
-        navigationController?.delegate = self
+        //navigationController?.delegate = self
 
-        
         tweetDetailsTableView.rowHeight = UITableViewAutomaticDimension
         tweetDetailsTableView.estimatedRowHeight = 120
         tweetDetailsTableView.showsVerticalScrollIndicator = false
@@ -53,46 +52,35 @@ extension TweetDetailsViewController: UITableViewDataSource, UITableViewDelegate
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DetailsRow1", for: indexPath) as! TweetDetailsRowOneCell
-            
             cell.tweet = self.tweet
             cell.selectionStyle = .none
-
             return cell
 
-            //break
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DetailsRow2", for: indexPath) as! TweetDetailsRowTwoCell
             cell.selectionStyle = .none
             cell.tweet = self.tweet
             return cell
 
-            //break
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DetailsRow3", for: indexPath) as! TweetDetailsRowThreeCell
             cell.selectionStyle = .none
-
             cell.tweet = self.tweet
             cell.delegate = self
             return cell
 
-            //break
         default:
             return UITableViewCell()
-
-            //break
         }
-        
-
     }
 }
 
-extension TweetDetailsViewController: UINavigationControllerDelegate {
+/*extension TweetDetailsViewController: UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         (viewController as? TweetsViewController)?.tweetModified =  tweetModified
-
     }
-}
+}*/
 
 
 extension TweetDetailsViewController: TweetDetailsRowThreeCellDelegate {
@@ -201,7 +189,6 @@ extension TweetDetailsViewController: TweetDetailsRowThreeCellDelegate {
                 
                 self.tweet = tweet
                 let prevIndexPath = IndexPath.init(row: (cellIndexPath?.row)! - 1, section: (cellIndexPath?.section)!)
-
                 self.tweetDetailsTableView.reloadRows(at: [prevIndexPath], with: .none)
                 
             }) { (error: Error) in
@@ -218,25 +205,19 @@ extension TweetDetailsViewController: TweetDetailsRowThreeCellDelegate {
 
             tweetDetailsRowThreeCell.tweet.favorited = false
             tweetDetailsRowThreeCell.tweet.decreaseFavCount()
-
             tweetDetailsRowThreeCell.setLikeImage(selected: false)
-            
             
             TwitterClient.sharedInstance.deleteFavorite(tweet: tweetDetailsRowThreeCell.tweet, success: { (tweet: (Tweet)) in
                 
                 self.tweet = tweet
                 let prevIndexPath = IndexPath.init(row: (cellIndexPath?.row)! - 1, section: (cellIndexPath?.section)!)
-                
                 self.tweetDetailsTableView.reloadRows(at: [prevIndexPath], with: .none)
                 
-                
             }) { (error: Error) in
-                
                 
                 tweetDetailsRowThreeCell.tweet.favorited = true
                 tweetDetailsRowThreeCell.setLikeImage(selected: true)
                 tweetDetailsRowThreeCell.tweet.increaseFavCount()
-                
                 print(error.localizedDescription)
             }
         }

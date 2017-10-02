@@ -9,8 +9,6 @@
 import UIKit
 import ACProgressHUD_Swift
 
-
-
 class TweetsViewController: UIViewController {
 
     var tweets: [Tweet]!
@@ -32,11 +30,9 @@ class TweetsViewController: UIViewController {
         )
     }
     
-    var tweetModified =  false
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        registerForNotifications()
         self.navigationItem.title = "Home"
         navigationController!.navigationBar.isTranslucent=false
 
@@ -61,20 +57,7 @@ class TweetsViewController: UIViewController {
         
         
         progressView.showHUD()
-
-        /*TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]) in
-            self.tweets = tweets
-            self.tweetsTableView.reloadData()
-
-            //print("tweets \(tweets)")
-            for tweet in self.tweets{
-                print("tweet \(tweet.tweeter)")
-
-            }
-
-        }) { (error: Error) in
-            print("error \(error.localizedDescription)")
-        }*/
+        getHomeLine()
         
         tweetsTableView.dataSource = self
         tweetsTableView.delegate = self
@@ -84,42 +67,33 @@ class TweetsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("tweetModified   \(tweetModified)")
-        //if(tweetModified) {
-        getHomeLine()
-        //}
+        //getHomeLine()
         progressView.hideHUD()
-
     }
+    
+    func registerForNotifications() {
+        // Register to receive new tweet notifications
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "TweetDidUpdate"),
+                                               object: nil, queue: OperationQueue.main) {
+                                                [weak self] (notification: Notification) in
+                                                let tweet = notification.userInfo!["tweet"] as! Tweet
+                                                self?.tweets.insert(tweet, at: 0)
+                                                self?.tweetsTableView.reloadData()
+        }
+    }
+    
 
     // MARK: - Refresh Control
 
     func refresh(sender:AnyObject) {
         progressView.showHUD()
-getHomeLine()
-        /*let newestId = self.tweets?.first?.remoteId as Any
-        let params = ["since_id": newestId]
-        TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]?) in
-            
-            print(tweets?.count)
-            if let newTweets = tweets {
-                if newTweets.count > 0 {
-                    self.tweets = tweets
-                    self.tweetsTableView.reloadData()
-                }
-            }
-            self.refreshControl.endRefreshing()
-        }) { (error: Error) in
-            print("error \(error.localizedDescription)")
-        }*/
+        getHomeLine()
         progressView.hideHUD()
     
     }
     
     func getHomeLine() {
         TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]?) in
-            
-            print(tweets?.count)
             if let newTweets = tweets {
                 if newTweets.count > 0 {
                     self.tweets = tweets
@@ -130,7 +104,6 @@ getHomeLine()
         }) { (error: Error) in
             print("error \(error.localizedDescription)")
         }
-
     }
     
     func composeTweet() {
@@ -139,7 +112,7 @@ getHomeLine()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if let tweetDetailsViewController = segue.destination as? TweetDetailsViewController {
             if let tweetCell = sender as? TweetCell {
                 tweetDetailsViewController.tweet = tweetCell.tweet
@@ -211,7 +184,6 @@ extension TweetsViewController: UIScrollViewDelegate {
             print("error \(error.localizedDescription)")
         }
         self.isMoreDataLoading = false
-
     }
     
 }
@@ -222,7 +194,6 @@ extension TweetsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return self.tweets?.count ?? 0
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -240,12 +211,11 @@ extension TweetsViewController: UITableViewDataSource, UITableViewDelegate {
         if let tweet = tweets?[indexPath.row] {
             cell.tweet = tweet
         }
-        
         return cell
     }
-
  }
 
+// MARK: - TweetCellDelegate
 extension TweetsViewController: TweetCellDelegate {
 
     func tweetCell(tweetCell: TweetCell, didReply tweet: Tweet) {
@@ -284,7 +254,6 @@ extension TweetsViewController: TweetCellDelegate {
                         
                         TwitterClient.sharedInstance.reweet(tweetIdString: "\(tweetCell.tweet.remoteId!)", success: { (tweet: Tweet?) in
                                 tweetCell.tweet = tweet
-                            //self.tweetsTableView.reloadData()
                             self.tweetsTableView.reloadRows(at: [cellIndexPath!], with: .none)
             
                         }) { (error: Error) in
@@ -304,7 +273,6 @@ extension TweetsViewController: TweetCellDelegate {
                 tweetCell.setRetweetImage(selected: false)
                 tweetCell.tweet = tweet
 
-                
                 // unretweet
                 TwitterClient.sharedInstance.findUserRetweet(tweetId: tweetCell.tweet.originalTweetId!, success: { (tweet: (Tweet?)) in
 
@@ -326,7 +294,6 @@ extension TweetsViewController: TweetCellDelegate {
     func tweetCell(tweetCell: TweetCell, didFavoriteChange tweet: Tweet) {
         let cellIndexPath = tweetsTableView.indexPath(for: tweetCell)
         
-
         if (!tweetCell.isLiked) {
             
             tweetCell.tweet.favorited = true
@@ -349,9 +316,6 @@ extension TweetsViewController: TweetCellDelegate {
 
                 
             }) { (error: Error) in
-                
-                print("Entered like error")
-                
                 tweetCell.setLikeImage(selected: false)
                 tweetCell.tweet.favorited = false
                 tweetCell.tweet.decreaseFavCount()
@@ -365,14 +329,9 @@ extension TweetsViewController: TweetCellDelegate {
             tweetCell.setLikeImage(selected: false)
             
             TwitterClient.sharedInstance.deleteFavorite(tweet: tweetCell.tweet, success: { (tweet: (Tweet)) in
-                print("Entered dislike")
                 self.tweetsTableView.reloadRows(at: [cellIndexPath!], with: .none)
 
-                
             }) { (error: Error) in
-                
-                print("Entered dislike error")
-                
                 tweetCell.tweet.favorited = true
                 tweetCell.setLikeImage(selected: true)
                 tweetCell.tweet.increaseFavCount()
@@ -381,6 +340,5 @@ extension TweetsViewController: TweetCellDelegate {
             }
         }
         tweetCell.isLiked = !tweetCell.isLiked
-    
     }
 }
