@@ -27,6 +27,9 @@ class ComposeTweetViewController: UIViewController /*, TTTAttributedLabelDelegat
     
     fileprivate var replyButton: UIButton!
     fileprivate var isReadyToTweet = false
+    
+    fileprivate var userame: String?
+    fileprivate var email = ""
 
     var replyingTweet: Tweet?
     
@@ -86,6 +89,7 @@ class ComposeTweetViewController: UIViewController /*, TTTAttributedLabelDelegat
                 
                 if let name = user.name {
                     ScreeName?.text = name
+                    userame = name
                 }
                 
                 if let screenname = user.screenname {
@@ -210,7 +214,7 @@ class ComposeTweetViewController: UIViewController /*, TTTAttributedLabelDelegat
         imageView.image = UIImage(named: "user")
 //imageView.image.
         
-let  alert = UIAlertAction.init(title: "Deepthy \n rkdeepthy@gmail.com", style: .default, image: UIImage(named: "user")!)
+let  alert = UIAlertAction.init(title: "\(userame) \n \(email)", style: .default, image: UIImage(named: "user")!)
         let cancelImageView = UIImageView(image: UIImage(named: "cancel"))
         let alertMessage = UIAlertController(title: "My Title", message: "My Message", preferredStyle: .actionSheet)
         let retweetAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
