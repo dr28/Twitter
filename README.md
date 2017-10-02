@@ -25,6 +25,16 @@ The following **optional** features are implemented:
 - [x] Replies should be prefixed with the username and the reply_id should be set when posting the tweet,
 - [x] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
 
+The following additional features are implemented:
+
+- [x] Countdown displayed as in real Twitter app in addition to displaying it on top. The countdown alerts with red color if less than 20 characters and the button will be disabled if characters exceed 140 characters.
+- [x] Provided placeholder text in textarea as in real Twitter app.
+- [x] The "@text" colored blue in reply view as in real Twitter app.
+- [x] Displays round profile image as in the Twitter app.
+- [x] Profile image displayed in compose and reply views.
+- [x] Clicking profile image in compose view display the account info as in Twitter app.
+- [x] The textarea in compose view moves up when keyboard appears.
+
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
